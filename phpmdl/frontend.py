@@ -120,6 +120,9 @@ class ApacheModPHP(Apache):
 class Nginx(Frontend):
     def pre_install(self):
         os.system('sudo apt-get remove -y apache2')
+        for version in php_versions:
+            os.system('sudo apt-get remove -y libapache2-mod-php{}'.format(version))
+        os.system('sudo apt-get autoremove -y')
 
     def post_install(self):
         os.system('service nginx stop')
@@ -154,7 +157,7 @@ class Nginx(Frontend):
         if 'vhost_file' in self.configuration:
             return os.path.join(self.application.get('directory'), self.configuration.get('vhost_file'))
 
-        return os.path.join(self.application.get('source_directory'), 'php', 'frontend', 'nginx', 'vhost.conf')
+        return os.path.join(self.application.get('source_directory'), 'phpmdl', 'frontend', 'nginx', 'vhost.conf')
 
     def get_startup_cmd(self):
         return '/usr/sbin/nginx'

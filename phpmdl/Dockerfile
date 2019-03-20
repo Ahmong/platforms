@@ -7,7 +7,6 @@
 
 FROM  tsuru/base-platform:18.04
 ADD	. /var/lib/tsuru/phpmdl
-RUN ls /var/lib/tsuru/phpmdl
 RUN	sudo cp /var/lib/tsuru/phpmdl/deploy /var/lib/tsuru
 RUN set -ex; \
     sudo /var/lib/tsuru/phpmdl/install; \
