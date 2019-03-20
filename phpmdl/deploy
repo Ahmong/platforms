@@ -1,0 +1,19 @@
+#!/bin/bash -el
+
+# Copyright 2015 tsuru authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+SOURCE_DIR=/var/lib/tsuru
+source ${SOURCE_DIR}/base/deploy
+source ${SOURCE_DIR}/base/rc/config
+
+echo "Deploying the PHP application..."
+
+# Deploying
+echo "Starting application configuration"
+if [ ! -d "${CURRENT_DIR}" ]; then
+  mkdir ${CURRENT_DIR} && chown ${USER} ${CURRENT_DIR}
+fi
+sudo -E python ${SOURCE_DIR}/phpmdl/deploy.py install
+python ${SOURCE_DIR}/phpmdl/deploy.py environment
